@@ -62,3 +62,14 @@ export const mobs = [
     ],
   },
 ];
+
+type Member = {
+  name: string;
+  id: string;
+};
+
+export type Mob = {
+  name: string;
+  id: string;
+  members: Member[];
+};
