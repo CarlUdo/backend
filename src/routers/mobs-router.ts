@@ -1,40 +1,8 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
+import { mobs } from "../db/mobs";
 
 export const mobsRouter = express.Router(); // Kör vid input time
-
-const mobs = [
-  {
-    name: "Kåda",
-    id: "1",
-    members: [
-      {
-        name: "Anton",
-        id: "1",
-      },
-    ],
-  },
-  {
-    name: "Spicy",
-    id: "2",
-    members: [
-      {
-        name: "Daniel",
-        id: "1",
-      },
-    ],
-  },
-  {
-    name: "Infinågot",
-    id: "3",
-    members: [
-      {
-        name: "Love",
-        id: "1",
-      },
-    ],
-  },
-];
 
 mobsRouter.get("/", (req: Request, res: Response) => {
   console.log(req.method);
@@ -76,7 +44,6 @@ mobsRouter.post(
     const mob = mobs.find((mob) => mob.id === mobId);
 
     mob?.members.push({ name, id: membersId });
-    console.log(mob?.members)
 
     res.status(201).json(membersId);
   },
