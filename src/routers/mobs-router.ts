@@ -24,3 +24,13 @@ mobsRouter.post("/", (req: Request, res: Response) => {
 
   res.status(200).location(`/api/v1/mobs/${id}`).json(id);
 });
+
+mobsRouter.get("/:mobsId", (req: Request, res: Response) => {
+  const mobId = req.params.mobId;
+  const mob = mobs.find(mob => mob.id === mobId);
+  res.status(200).json(mob);
+});
+
+// app.get("/api/v1/mobs/:mobId", (req: Request, resp: Response) => {
+//   resp.status(200).json([]);
+// });
