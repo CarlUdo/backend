@@ -26,11 +26,9 @@ mobsRouter.post("/", (req: Request, res: Response) => {
 });
 
 mobsRouter.get("/:mobsId", (req: Request, res: Response) => {
-  const mobId = req.params.mobId;
+  const mobId = req.params.mobsId;
+  console.log(mobId)
   const mob = mobs.find(mob => mob.id === mobId);
   res.status(200).json(mob);
 });
 
-// app.get("/api/v1/mobs/:mobId", (req: Request, resp: Response) => {
-//   resp.status(200).json([]);
-// });
