@@ -10,23 +10,30 @@ const mobs = [
     members: [
       {
         name: "Anton",
-      id: "1"}
-    ]
+        id: "1",
+      },
+    ],
   },
-  { name: "Spicy", id: "2",
+  {
+    name: "Spicy",
+    id: "2",
     members: [
       {
         name: "Daniel",
-      id: "1"}
-    ]
-   },
-  { name: "Infinågot", id: "3",
+        id: "1",
+      },
+    ],
+  },
+  {
+    name: "Infinågot",
+    id: "3",
     members: [
       {
         name: "Love",
-      id: "1"}
-    ]
-   },
+        id: "1",
+      },
+    ],
+  },
 ];
 
 mobsRouter.get("/", (req: Request, res: Response) => {
@@ -37,7 +44,7 @@ mobsRouter.get("/", (req: Request, res: Response) => {
 mobsRouter.post("/", (req: Request, res: Response) => {
   const { name } = req.body;
   const id = uuidv4();
-  mobs.push({ name, id, members: []});
+  mobs.push({ name, id, members: [] });
 
   res.status(201).location(`/api/v1/mobs/${id}`).json(id);
 });
@@ -45,39 +52,45 @@ mobsRouter.post("/", (req: Request, res: Response) => {
 mobsRouter.get("/:mobsId", (req: Request, res: Response) => {
   const mobId = req.params.mobsId;
 
-  const mob = mobs.find(mob => mob.id === mobId);
+  const mob = mobs.find((mob) => mob.id === mobId);
 
   res.status(200).json(mob);
 });
 
-mobsRouter.get("/api/v1/mobs/:mobId/members", (req: Request, res: Response) => {
-  const mobId = req.params.mobsId;
+mobsRouter.get("/:mobId/members", (req: Request, res: Response) => {
+  const { mobId }= req.params;
 
-  const mob = mobs.find(mob => mob.id === mobId);
+  const mob = mobs.find((mob) => mob.id === mobId);
 
   res.status(200).json(mob?.members);
 });
 
-mobsRouter.post("/api/v1/mobs/:mobId/members", (req: Request, res: Response) => {
-  const { name } = req.body;
-  const mobId = req.params.mobsId;
+mobsRouter.post(
+  "/:mobId/members",
+  (req: Request, res: Response) => {
+    const { name } = req.body;
+    const { mobId } = req.params;
 
-  const membersId = uuidv4();
+    const membersId = uuidv4();
 
-  const mob = mobs.find(mob => mob.id === mobId);
+    const mob = mobs.find((mob) => mob.id === mobId);
 
-  mob?.members.push({name, id: membersId});
+    mob?.members.push({ name, id: membersId });
+    console.log(mob?.members)
 
-  res.status(201).location(`/api/v1/mobs/${mobId}/members`).json(mobId);
-});
+    res.status(201).json(membersId);
+  },
+);
 
-mobsRouter.get("/api/v1/mobs/:mobId/members/:memberId", (req: Request, res: Response) => {
-  const { mobId, memberId } = req.params;
+mobsRouter.get(
+  "/:mobId/members/:memberId",
+  (req: Request, res: Response) => {
+    const { mobId, memberId } = req.params;
 
-  const mob = mobs.find(mob => mob.id === mobId);
+    const mob = mobs.find((mob) => mob.id === mobId);
 
-  const member = mob?.members.find(member => member.id === memberId);
+    const member = mob?.members.find((member) => member.id === memberId);
 
-  res.status(200).json(member);
-});
-
+    res.status(200).json(member);
+  },
+);
