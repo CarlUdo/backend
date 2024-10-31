@@ -7,8 +7,6 @@ app.use(express.json());
 
 app.use("/api/v1/mobs", mobsRouter);
 
-app.post("/api/v1/mobs/", mobsRouter);
-
 // app.get("/api/v1/mobs/:mobId", (req: Request, resp: Response) => {
 //   resp.status(200).json([]);
 // });
