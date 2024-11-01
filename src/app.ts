@@ -5,7 +5,7 @@ import cors from "cors";
 
 export const app = express();
 
-app.use(cors());
+app.use(cors({origin: "https://carludo.github.io/frontend/"}));
 
 app.use(express.json());
 
